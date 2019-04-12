@@ -3,8 +3,10 @@ package com.study.ssm.utils;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -70,14 +72,35 @@ public class XMLToMap {
         }
         return outXMLMap;
     }
-    
+    /**
+     * 遍历XML所有的标签的属性
+     * @param node
+     */
+    public  void getNods(Element node){
+        System.out.println("--------------------");
+      //当前节点的名称、文本内容和属性
+        System.out.println("当前节点名称："+node.getName());//当前节点名称
+        System.out.println("当前节点的内容："+node.getTextTrim());//当前节点名称
+        List<Attribute> list=node.attributes ();
+        for (Attribute attr : list) {
+            String name=attr.getName();//属性名称
+            String value=attr.getValue();//属性的值
+            System.out.println("属性名称："+name+"属性值："+value);
+        }
+        List<Element> eList=node.elements ();//遍历所有子节点
+        for (Element element : eList) {
+            this.getNods(element);
+        }
+    }
     
     
     public static void main(String[] args) {
         Element element=XMLToMap.getXMLRootElement ("src/main/resources/mybatis-config.xml");
-        Map outXMLMap=new HashMap(); 
-        Map<String, Map<String, Map<String, String>>> map=loadXMLMap(element,outXMLMap);
-        System.out.println (map.toString ());
+//        Map outXMLMap=new HashMap(); 
+//        Map<String, Map<String, Map<String, String>>> map=loadXMLMap(element,outXMLMap);
+//        System.out.println (map.toString ());
+        XMLToMap xm=new XMLToMap ();
+        xm.getNods (element);
     }
     
 }
