@@ -2,20 +2,66 @@ package com.study.ssm.core;
 
 import java.util.Date;
 
+
+
 public class User {
 
 	private Integer userid;
 	private String username;
 	private String password;
 	private Date crateTime;
-	private Date updatetime;
-	private String createUser;
-	private String updateUser;
+	private Date updateTime;
+	private Integer createUser;
+	private Integer updateUser;
 	private String notes;
-	private Integer status;
+	private String status;
 	private Date lastLoginTime;
+	private String email;
+	private String phone;
+	private String realname;
+    private String address;
 
-	public Integer getUserid() {
+	public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getUserid() {
 		return userid;
 	}
 
@@ -47,27 +93,19 @@ public class User {
 		this.crateTime = crateTime;
 	}
 
-	public Date getUpdatetime() {
-		return updatetime;
-	}
-
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
-	}
-
-	public String getCreateUser() {
+	public Integer getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(String createUser) {
+	public void setCreateUser(Integer createUser) {
 		this.createUser = createUser;
 	}
 
-	public String getUpdateUser() {
+	public Integer getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(String updateUser) {
+	public void setUpdateUser(Integer updateUser) {
 		this.updateUser = updateUser;
 	}
 
@@ -79,11 +117,11 @@ public class User {
 		this.notes = notes;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

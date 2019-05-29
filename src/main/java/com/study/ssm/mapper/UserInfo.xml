@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.ssm.dao.UserInfoDao">
+	<resultMap type="User" id="User">
+		<id property="userid" javaType="java.lang.Integer" column="userid"
+			jdbcType="INTEGER" />
+		<result property="username" javaType="java.lang.String" column="username"
+			jdbcType="VARCHAR" />
+		<result property="password" javaType="java.lang.String" column="password"
+			jdbcType="VARCHAR" />
+		<result property="crateTime" javaType="java.util.Date" column="createTime"
+			jdbcType="DATE" />
+		<result property="updateTime" javaType="java.util.Date" column="updateTime"
+			jdbcType="DATE" />
+		<result property="createUser" javaType="java.lang.Integer"
+			column="createUser" jdbcType="INTEGER" />
+		<result property="updateUser" javaType="java.lang.Integer"
+			column="updateUser" jdbcType="INTEGER" />
+		<result property="notes" javaType="java.lang.String" column="notes"
+			jdbcType="VARCHAR" />
+		<result property="notes" javaType="java.lang.String" column="notes"
+			jdbcType="VARCHAR" />
+		<result property="status" javaType="java.lang.String" column="status"
+			jdbcType="VARCHAR" />
+		<result property="lastLoginTime" javaType="java.util.Date" column="lastLoginTime"
+			jdbcType="DATE" />
+		<result property="email" javaType="java.lang.String" column="email"
+			jdbcType="VARCHAR" />
+		<result property="phone" javaType="java.lang.String" column="phone"
+			jdbcType="VARCHAR" />
+		<result property="realname" javaType="java.lang.String" column="realname"
+			jdbcType="VARCHAR" />
+		<result property="address" javaType="java.lang.String" column="address"
+			jdbcType="VARCHAR" />				
+	</resultMap>
+	
+	
+	<select id="findUserById" parameterType="java.lang.Integer" resultType="com.study.ssm.core.User" resultMap="User">
+	 	select * from tbl_study_user_info where userid=#{id}
+	</select>
+	<!-- 登录 -->
+	<select id="userLogin" parameterType="java.lang.String" resultType="com.study.ssm.core.User" resultMap="User">
+		SELECT t.username,t.status,t.lastLoginTime,t.email,t.realname,t.address FROM tbl_study_user_info t WHERE t.username=#{username} AND password=#{password}
+	</select>
+</mapper>
