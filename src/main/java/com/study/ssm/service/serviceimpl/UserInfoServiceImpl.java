@@ -26,5 +26,18 @@ public class UserInfoServiceImpl implements UserInfoService{
         
         return userInfoDao.userLogin (username , password);
     }
+
+
+    @Override
+    public void inserUser(User user) {
+        userInfoDao.inserUser (user);
+    }
+
+
+    @Override
+    public User findUserByUserName(String userName) {
+        
+        return userInfoDao.findUserByUserName (userName);
+    }
     
 }

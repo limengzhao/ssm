@@ -9,7 +9,7 @@ public class User {
 	private Integer userid;
 	private String username;
 	private String password;
-	private Date crateTime;
+	private Date createTime;
 	private Date updateTime;
 	private Integer createUser;
 	private Integer updateUser;
@@ -85,15 +85,17 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getCrateTime() {
-		return crateTime;
-	}
+	
 
-	public void setCrateTime(Date crateTime) {
-		this.crateTime = crateTime;
-	}
+	public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getCreateUser() {
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getCreateUser() {
 		return createUser;
 	}
 

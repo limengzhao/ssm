@@ -30,7 +30,7 @@
 		<div style="border: 1px solid gray;">
 			<div class="admin-login-background"
 				style="margin-top: 20px; margin-left: 30px; margin-right: 30px; margin-bottom: 30px">
-				<form class="layui-form layui-form-pane"><!-- action="<%=basePath%>login" method="post" -->
+				<form class="layui-form layui-form-pane" action="<%=basePath%>login" method="post">
 					<div class="layui-form-item">
 						<i
 							class="layui-icon layui-icon-username admin-icon admin-icon-username">&nbsp;用户名:</i>
@@ -45,8 +45,9 @@
 					</div>
 					<div class="layui-form-item"
 						style="text-align: center; margin-top: 30px">
-						<button lay-filter="register" class="layui-btn" value="注册" >注册</button>
-						<button lay-submit lay-filter="login" class="layui-btn" value="登录">登录</button>
+						
+						<input type="submit"  class="layui-btn" value="登录"/>
+						<a href="<%=basePath%>register" class="layui-btn">注册</a>
 					</div>
 				</form>
 			</div>
@@ -60,9 +61,9 @@
 			var form = layui.form;	
 			var $=layui.jquery;
 			
-			form.on('submit(login)',function(data){
+			form.on('onClick(register)',function(data){
+				alert(data.field.username);
 				//alert(data.field.username);
-				console.log(data.field);
 				
 				//ajax访问后台
 			});

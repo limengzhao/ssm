@@ -3,6 +3,7 @@ package com.study.ssm.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.ssm.common.PropertiesConfigurer;
 import com.study.ssm.core.User;
@@ -87,7 +90,62 @@ public class UserInfoController {
             }
         }
         System.out.println ("退出");
-        return "loginOut";
+        return "../loginOut";
+    }
+    
+    /**
+     * 进入注册
+     * @return
+     */
+    @RequestMapping(value="/register")
+    public String register(){
+        System.out.println ("进入注册页面");
+        return "../register";
+    } 
+    /**
+     * 新增用户
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value="/save",method=RequestMethod.POST)
+    @ResponseBody
+    public String saveUser(HttpServletRequest request,HttpServletResponse response){
+        User user=new User ();
+        String username=request.getParameter ("username");
+        user.setUsername (username);
+        String status=request.getParameter ("status");
+        user.setStatus (status);
+        String password=request.getParameter ("password");
+        user.setPassword (password);
+        String phone=request.getParameter ("phone");
+        user.setPhone (phone);
+        String realname=request.getParameter ("realname");
+        user.setRealname (realname);
+        String email=request.getParameter ("email");
+        user.setEmail (email);
+        user.setCreateUser (1);
+        user.setCreateTime (new Date ());
+        userInfoServiceImpl.inserUser (user);
+        System.out.println ("username====="+username+" status===="+status +" password==="+password);
+        System.out.println ("注册成功");
+        return "true";
+    }
+    /**
+     * 校验用户名是否可用
+     * @param username
+     * @return
+     */
+    @RequestMapping(value="/username.action")
+    @ResponseBody
+    public String findUserByUserName(String username){
+        System.out.println ("userName==="+username);
+        User count=userInfoServiceImpl.findUserByUserName (username);
+        System.out.println (count);
+        if(count!=null){
+            return "1";
+        }
+        return "0";
     }
     
     

@@ -11,5 +11,9 @@ public interface UserInfoDao {
     User findUserById(Integer id);
     
     User userLogin(@Param("username")String username,@Param("password")String password);
+    
+    void inserUser(User user);
+    
+    User findUserByUserName(@Param("username")String userName);
 
 }

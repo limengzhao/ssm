@@ -34,13 +34,23 @@
 		<result property="address" javaType="java.lang.String" column="address"
 			jdbcType="VARCHAR" />				
 	</resultMap>
-	
-	
+	<!--插入user-->
+	<insert id="inserUser" useGeneratedKeys="true" keyProperty="userid" parameterType="com.study.ssm.core.User" statementType="PREPARED" timeout="20">
+	   insert into tbl_study_user_info
+	   (username,password,createTime,updateTime,createUser,updateUser,notes,status,lastLoginTime,email,phone,realname,address)values 
+	   (#{username},#{password},#{createTime,jdbcType=DATE},#{updateTime,jdbcType=DATE},#{createUser},#{updateUser},#{notes},#{status},#{lastLoginTime,jdbcType=DATE},#{email},#{phone},#{realname},#{address})
+	</insert>
+	<!-- 根据ID查询 -->
 	<select id="findUserById" parameterType="java.lang.Integer" resultType="com.study.ssm.core.User" resultMap="User">
 	 	select * from tbl_study_user_info where userid=#{id}
 	</select>
 	<!-- 登录 -->
 	<select id="userLogin" parameterType="java.lang.String" resultType="com.study.ssm.core.User" resultMap="User">
-		SELECT t.username,t.status,t.lastLoginTime,t.email,t.realname,t.address FROM tbl_study_user_info t WHERE t.username=#{username} AND password=#{password}
+		select t.username,t.status,t.lastLoginTime,t.email,t.realname,t.address from tbl_study_user_info t WHERE t.username=#{username} AND password=#{password}
+	</select>
+	
+	<!-- 根据username 查询用户 -->
+	<select id="findUserByUserName" parameterType="java.lang.String" resultType="com.study.ssm.core.User" resultMap="User">
+		select t.username from tbl_study_user_info t where t.username=#{username}
 	</select>
 </mapper>
