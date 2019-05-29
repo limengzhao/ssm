@@ -9,7 +9,7 @@
 			jdbcType="VARCHAR" />
 		<result property="password" javaType="java.lang.String" column="password"
 			jdbcType="VARCHAR" />
-		<result property="crateTime" javaType="java.util.Date" column="createTime"
+		<result property="createTime" javaType="java.util.Date" column="createTime"
 			jdbcType="DATE" />
 		<result property="updateTime" javaType="java.util.Date" column="updateTime"
 			jdbcType="DATE" />
@@ -52,5 +52,9 @@
 	<!-- 根据username 查询用户 -->
 	<select id="findUserByUserName" parameterType="java.lang.String" resultType="com.study.ssm.core.User" resultMap="User">
 		select t.username from tbl_study_user_info t where t.username=#{username}
+	</select>
+	<!-- 查询用户数据 -->
+	<select id="findAllUser" resultType="com.study.ssm.core.User" resultMap="User">
+		select * from tbl_study_user_info
 	</select>
 </mapper>

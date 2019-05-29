@@ -1,12 +1,16 @@
 package com.study.ssm.service;
 
 
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 import com.study.ssm.core.User;
 
 
 public interface UserInfoService{
+	
+	
+	List<User> findUserAll();
     
     User findUserById(Integer id);
     

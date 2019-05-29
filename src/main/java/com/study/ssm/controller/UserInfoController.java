@@ -4,11 +4,11 @@ package com.study.ssm.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.study.ssm.common.PropertiesConfigurer;
 import com.study.ssm.core.User;
 import com.study.ssm.service.serviceimpl.UserInfoServiceImpl;
@@ -39,6 +40,17 @@ public class UserInfoController {
     public User getUserById(Integer id){
         
         return userInfoServiceImpl.findUserById(1);
+    }
+    
+    @RequestMapping(value = "/findUserPage")
+    public String findUserPage(Model model) {
+    	List<User> userList=userInfoServiceImpl.findUserAll();
+    	JSONArray jsonArray=JSONArray.parseArray(JSONObject.toJSONString(userList));
+    	System.out.println(jsonArray.toJSONString());
+    	
+    	String data="{\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+jsonArray.toJSONString()+"}";
+    	ModelView.modelView("userList", data, model);
+    	return "view/user/user";
     }
     
     
@@ -146,6 +158,13 @@ public class UserInfoController {
             return "1";
         }
         return "0";
+    }
+    
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public String findAllUser(Model model) {
+    	
+    	return "1";
     }
     
     

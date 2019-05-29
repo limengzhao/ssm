@@ -1,12 +1,16 @@
 package com.study.ssm.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.study.ssm.core.User;
 
 
 public interface UserInfoDao {
+	
+	List<User> findAllUser();
     
     User findUserById(Integer id);
     

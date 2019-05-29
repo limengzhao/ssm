@@ -62,7 +62,7 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;" data_id="1" data_title="用户管理"
-									data-url="user.jsp" class="site_active" data_type="tabAdd"> 用户管理</a>
+									data-url="<%=basePath%>findUserPage" class="site_active" data_type="tabAdd"> 用户管理</a>
 							</dd>
 							<dd>
 								<a href="javascript:;" data_id="2" data_title="菜单管理"
