@@ -152,7 +152,7 @@
 					tabDelete:function(id){
 						element.tabDelete('tabs',id);
 					}
-			}			
+			};			
 			//计算framWH
 			function FrameWH(){
 				var h = $(window).height();

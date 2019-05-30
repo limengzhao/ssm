@@ -44,9 +44,15 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 
 	@Override
-	public List<User> findUserAll() {
+	public List<User> findUserAll(Integer userid) {
 		
-		return userInfoDao.findAllUser();
+		return userInfoDao.findAllUser(userid);
 	}
+
+
+    @Override
+    public void deleteUserById(Integer userid) {
+        userInfoDao.deleteUserById (userid);
+    }
     
 }

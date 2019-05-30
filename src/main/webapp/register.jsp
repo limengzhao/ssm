@@ -27,8 +27,8 @@
 		<div class="layui-row layui-col-space10" style="margin-top: 50px;">
 			<div class="layui-col-md2 layui-col">左侧列</div>
 			<div class="layui-col-md8 layui-col">
-
 				<form class="layui-form layui-form-pane" method="post">
+				<input type="hidden" name="type" value="${type}" id="type"/>
 					<!--action="<%=basePath%>save" method="post" -->
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>注册</legend>
@@ -87,7 +87,7 @@
 						<div class="layui-form-item">
 							<button type="submit" lay-submit lay-filter="sub"
 								class="layui-btn" lay->注册</button>
-							<a href="<%=basePath%>login.jsp" class="layui-btn">取消</a>
+							<a id="cancel" class="layui-btn">取消</a>
 						</div>
 
 					</fieldset>
@@ -96,13 +96,23 @@
 			<div class="layui-col-md2 layui-col">右侧列</div>
 		</div>
 	</div>
-
+	
+	
 
 	<script type="text/javascript">
 		layui.use(['layer','jquery','form'], function() {
 			var layer = layui.layer;
 			var form = layui.form;	
 			var $=layui.jquery;
+			
+			//判断取消返回页面
+			$("#cancel").on('click',function(){
+				if($("#type").val()=="login"){
+					location.href="<%=basePath%>login.jsp"
+				}else if($("#type").val()=="add"){
+					location.href="<%=basePath%>findUserPage"
+				}
+			});
 			//监控用户名是否已经被注册
 			$("#username").blur(function(){
 				//var data=$("#username").val();
@@ -136,7 +146,7 @@
 					method:'post',
 					data:data.field,
 					success:function(res){
-						if(res=="true"){
+						if(res=="login"){
 						layer.open({
 							type:0,
 							content:'注册成功！',
@@ -145,6 +155,17 @@
 								location.href="<%=basePath%>login.jsp"
 								}
 							});
+						}else if(res=="add"){
+							layer.open({
+								type:0,
+								content:'注册成功！',
+								btn:['确定'],
+								yes:function(){
+									location.href="<%=basePath%>findUserPage"
+									}
+								});
+						}else{
+							layer.msg(res);
 						}
 					},
 					error : function(data) {

@@ -10,7 +10,7 @@ import com.study.ssm.core.User;
 public interface UserInfoService{
 	
 	
-	List<User> findUserAll();
+	List<User> findUserAll(Integer userid);
     
     User findUserById(Integer id);
     
@@ -19,4 +19,6 @@ public interface UserInfoService{
     void inserUser(User user);
     
     User findUserByUserName(String userName);
+    
+    void deleteUserById(Integer id);
 }

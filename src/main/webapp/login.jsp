@@ -47,7 +47,7 @@
 						style="text-align: center; margin-top: 30px">
 						
 						<input type="submit"  class="layui-btn" value="登录"/>
-						<a href="<%=basePath%>register" class="layui-btn">注册</a>
+						<a href="<%=basePath%>register?type=login" class="layui-btn">注册</a>
 					</div>
 				</form>
 			</div>

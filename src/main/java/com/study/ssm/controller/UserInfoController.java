@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -43,13 +45,7 @@ public class UserInfoController {
     }
     
     @RequestMapping(value = "/findUserPage")
-    public String findUserPage(Model model) {
-    	List<User> userList=userInfoServiceImpl.findUserAll();
-    	JSONArray jsonArray=JSONArray.parseArray(JSONObject.toJSONString(userList));
-    	System.out.println(jsonArray.toJSONString());
-    	
-    	String data="{\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+jsonArray.toJSONString()+"}";
-    	ModelView.modelView("userList", data, model);
+    public String findUserPage() {
     	return "view/user/user";
     }
     
@@ -86,7 +82,12 @@ public class UserInfoController {
             return Constant.VIEW_ERROR;
         }
     }
-    
+    /**
+     * 退出
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value="/loginOut",method=RequestMethod.GET)
     public String loginOut(HttpServletRequest request,HttpServletResponse response){
         request.getSession().invalidate();//让session对象无效
@@ -110,10 +111,21 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value="/register")
-    public String register(){
-        System.out.println ("进入注册页面");
+    public String register(String type,Model model){
+        System.out.println ("进入注册页面"+type);
+        ModelView.modelView ("type" , type , model);
         return "../register";
-    } 
+    }
+    /**
+     * 跳转到更新页面
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/userUpdate")
+    public String update(String userid,Model model){
+        ModelView.modelView ("id" , "1" , model);
+        return "view/user/update";
+    }
     /**
      * 新增用户
      * @param request
@@ -139,9 +151,15 @@ public class UserInfoController {
         user.setCreateUser (1);
         user.setCreateTime (new Date ());
         userInfoServiceImpl.inserUser (user);
-        System.out.println ("username====="+username+" status===="+status +" password==="+password);
+        String type=request.getParameter ("type");
+        System.out.println ("username====="+username+" status===="+status +" password==="+password+" type==="+type);
         System.out.println ("注册成功");
-        return "true";
+        if("login".equals (type)){
+            return "login";
+        }else if("add".equals (type)){
+            return "add";
+        }
+        return "注册失败";
     }
     /**
      * 校验用户名是否可用
@@ -159,13 +177,34 @@ public class UserInfoController {
         }
         return "0";
     }
-    
+    /**
+     * 查询全部用户数据
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public String findAllUser(Model model) {
-    	
-    	return "1";
+    public ConcurrentMap<String, Object> findAllUser(Integer userid) {
+        List<User> userList=userInfoServiceImpl.findUserAll(userid);
+        JSONArray jsonArray=JSONArray.parseArray(JSONObject.toJSONString(userList));
+        System.out.println(jsonArray.toJSONString());
+        ConcurrentMap<String, Object> concurrentMap = new ConcurrentHashMap<String,Object>();
+        concurrentMap.put ("code" , 0);
+        concurrentMap.put ("msg" , "成功");
+        concurrentMap.put ("count" , userList.size ());
+        concurrentMap.put ("data" , userList);
+    	return concurrentMap;
     }
-    
+    @RequestMapping(value="/deleteUser",method=RequestMethod.GET)
+    @ResponseBody
+    public String deleteUserById(Integer userid){
+        try{
+            System.out.println ("userid===="+userid);
+            userInfoServiceImpl.deleteUserById (userid);
+        }catch (Exception e) {
+           return "1";
+        }
+        return "0";
+    }
     
 }

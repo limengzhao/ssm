@@ -10,7 +10,7 @@ import com.study.ssm.core.User;
 
 public interface UserInfoDao {
 	
-	List<User> findAllUser();
+	List<User> findAllUser(@Param(value="userid") Integer userid);
     
     User findUserById(Integer id);
     
@@ -19,5 +19,7 @@ public interface UserInfoDao {
     void inserUser(User user);
     
     User findUserByUserName(@Param("username")String userName);
+    
+    void deleteUserById(Integer userid);
 
 }

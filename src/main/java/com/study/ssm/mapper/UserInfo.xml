@@ -54,7 +54,14 @@
 		select t.username from tbl_study_user_info t where t.username=#{username}
 	</select>
 	<!-- 查询用户数据 -->
-	<select id="findAllUser" resultType="com.study.ssm.core.User" resultMap="User">
-		select * from tbl_study_user_info
+	<select id="findAllUser" resultType="com.study.ssm.core.User" parameterType="java.lang.Integer" statementType="PREPARED"  resultMap="User">
+		select * from tbl_study_user_info where 1=1
+		<if test="userid != null">
+		 and userid=#{userid}
+		</if>
 	</select>
+	<!-- 删除用户 -->
+	<delete id="deleteUserById" parameterType="int" statementType="PREPARED" timeout="20">
+		delete from tbl_study_user_info where userid=#{userid}
+	</delete>
 </mapper>
