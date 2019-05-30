@@ -123,7 +123,8 @@ public class UserInfoController {
      */
     @RequestMapping(value="/userUpdate")
     public String update(String userid,Model model){
-        ModelView.modelView ("id" , "1" , model);
+        System.out.println ("userid==="+userid);
+        ModelView.modelView ("id" , userid , model);
         return "view/user/update";
     }
     /**

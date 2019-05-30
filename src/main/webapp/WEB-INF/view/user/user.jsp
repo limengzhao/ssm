@@ -90,13 +90,12 @@
 							 "userid":data.userid
 					  }
 				  if(obj.event=="updateUser"){//查看这条数据
-					  layer.msg('ID: '+data.userid+'查看的操作');
 					  layer.open({
 						  type:2,
-						  content:'<%=basePath%>userUpdate',
-						  success: function(layero, index) {
-							 layer.iframeAuto(index);
-						 },
+						  title:'更新用户',
+						  offset: '100px',
+						  content:'<%=basePath%>userUpdate?userid='+data.userid,
+						  area:["650px","600px"]
 					  });
 				  
 				  }else if(obj.event=="delUser"){
