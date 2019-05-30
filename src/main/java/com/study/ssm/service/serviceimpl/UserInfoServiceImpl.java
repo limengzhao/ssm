@@ -17,9 +17,9 @@ public class UserInfoServiceImpl implements UserInfoService{
     
     
     @Override
-    public User findUserById(Integer id) {
+    public User findUserById(Integer userid) {
         
-        return userInfoDao.findUserById (id);
+        return userInfoDao.findUserById (userid);
     }
 
 
@@ -54,5 +54,11 @@ public class UserInfoServiceImpl implements UserInfoService{
     public void deleteUserById(Integer userid) {
         userInfoDao.deleteUserById (userid);
     }
+
+
+	@Override
+	public void updateUser(User user) {
+		userInfoDao.updateUser(user);
+	}
     
 }

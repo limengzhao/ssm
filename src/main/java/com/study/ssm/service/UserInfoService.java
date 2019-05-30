@@ -21,4 +21,6 @@ public interface UserInfoService{
     User findUserByUserName(String userName);
     
     void deleteUserById(Integer id);
+    
+    void updateUser(User user);
 }

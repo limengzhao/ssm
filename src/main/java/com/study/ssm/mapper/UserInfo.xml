@@ -64,4 +64,8 @@
 	<delete id="deleteUserById" parameterType="int" statementType="PREPARED" timeout="20">
 		delete from tbl_study_user_info where userid=#{userid}
 	</delete>
+	<!--update用户 
+	<update id="updateUser" parameterMap="com.study.ssm.core.User" statementType="PREPARED" timeout="30">
+		update tbl_study_user_info set 
+	</update> -->
 </mapper>

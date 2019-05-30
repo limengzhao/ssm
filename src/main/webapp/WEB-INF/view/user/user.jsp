@@ -23,7 +23,7 @@
   <button class="layui-btn" data-type="reload">搜索</button>
 </div>
 	<div>
-		<table id="userTable" lay-filter="table"></table>
+		<table id="userTable" class="layui-table" lay-size="sm" lay-filter="table"></table>
 		<script type="text/html" id="userToolbar">
   			<div class="layui-btn-container">
     			<button class="layui-btn" lay-event="addUser">新     增</button>
@@ -39,22 +39,23 @@
 			  table.render({
 			    elem: '#userTable'
 			    ,id:'userTableReload'
-			    ,height: 800
+			    ,height:550
+			    ,width:1000
 			    ,title:'用户管理'
 			    ,url: '<%=basePath%>findAll' //数据接口
 			    ,toolbar: '#userToolbar'
 			    ,page: true //开启分页
 			    ,cols: [[ //表头
 			      {field: 'userid', title: 'ID', width:80, sort: true, fixed: 'left'}
-			      ,{field: 'username', title: '用户名', width:120}
-			      ,{field: 'realname', title: '真实姓名', width:120}
-			      ,{field: 'password', title: '密码', width:120} 
-			      ,{field: 'createTime', title: '创建时间', width: 120}
-			      ,{field: 'phone', title: '电话', width: 120}
-			      ,{field: 'createUser', title: '创建人', width: 120}
-			      ,{field: 'email', title: '邮箱', width: 120}
+			      ,{field: 'username', title: '用户名', width:100}
+			      ,{field: 'realname', title: '真实姓名', width:100}
+			      ,{field: 'password', title: '密码', width:80} 
+			      ,{field: 'createTime', title: '创建时间', width:100}
+			      ,{field: 'phone', title: '电话', width:100}
+			      ,{field: 'createUser', title: '创建人', width:80}
+			      ,{field: 'email', title: '邮箱', width:110}
 			      ,{field: 'status', title: '状态', width: 80}
-			      ,{title: '操作', width:178, align:'center', toolbar: '#barOperator'}
+			      ,{title: '操作', width:150, align:'center', toolbar: '#barOperator'}
 			    ]]
 			  });
 			//监听按钮事件
@@ -93,9 +94,9 @@
 					  layer.open({
 						  type:2,
 						  title:'更新用户',
-						  offset: '100px',
+						  offset: '30px',
 						  content:'<%=basePath%>userUpdate?userid='+data.userid,
-						  area:["650px","600px"]
+						  area:["80%","80%"]
 					  });
 				  
 				  }else if(obj.event=="delUser"){

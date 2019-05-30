@@ -95,7 +95,7 @@
 
 		<div class="layui-body" style="bottom: 0px;">
 			<!-- 内容主体区域 -->
-			<div class="layui-tab" lay-filter="tabs" style="padding: 15px;" lay-allowclose="true">
+			<div class="layui-tab" lay-filter="tabs" style="padding: 10px;" lay-allowclose="true">
 				<ul class="layui-tab-title">
 					<!-- <li class="layui-this">首页</li> -->
 				</ul>
@@ -106,7 +106,7 @@
 		</div>
 
 		<div class="layui-footer">
-			<!-- 底部固定区域 -->
+			底部固定区域
 			© layui.com - 底部固定区域
 		</div>
 	</div>
@@ -141,7 +141,7 @@
 					tabAdd:function(url,id,name){
 						element.tabAdd('tabs',{
 							title:name,
-							content:'<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
+							content:'<iframe data-frameid="' + id + '" scrolling="no" frameborder="0" src="' + url + '" style="width:100%;height:100%;"></iframe>',
 							id:id
 						});
 						FrameWH();  //计算ifram层的大小

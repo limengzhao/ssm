@@ -21,5 +21,7 @@ public interface UserInfoDao {
     User findUserByUserName(@Param("username")String userName);
     
     void deleteUserById(Integer userid);
+    
+    void updateUser(User user);
 
 }

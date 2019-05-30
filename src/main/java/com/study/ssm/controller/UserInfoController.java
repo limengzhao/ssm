@@ -122,9 +122,10 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value="/userUpdate")
-    public String update(String userid,Model model){
+    public String update(Integer userid,Model model){
         System.out.println ("userid==="+userid);
-        ModelView.modelView ("id" , userid , model);
+        User user=userInfoServiceImpl.findUserById(userid);
+        ModelView.modelView ("user" , user , model);
         return "view/user/update";
     }
     /**
@@ -196,6 +197,11 @@ public class UserInfoController {
         concurrentMap.put ("data" , userList);
     	return concurrentMap;
     }
+    /**
+            * É¾³ýÓÃ»§
+     * @param userid
+     * @return
+     */
     @RequestMapping(value="/deleteUser",method=RequestMethod.GET)
     @ResponseBody
     public String deleteUserById(Integer userid){
@@ -206,6 +212,14 @@ public class UserInfoController {
            return "1";
         }
         return "0";
+    }
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUserById(User user) {
+    	System.out.println("updateUser===="+user.getRealname());
+    	userInfoServiceImpl.updateUser(user);
+    	
+    	return "0";
     }
     
 }
