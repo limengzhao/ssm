@@ -28,7 +28,7 @@
 		<div class="layui-row layui-col-space10" style="margin-top: 10px;">
 			<div class="layui-col-md8 layui-col">
 				<form class="layui-form layui-form-pane" method="post">
-				<input type="hidden" name="type" value="${type}" id="type"/>
+				<input type="hidden" name="userid" value="${user.userid}"/>222${user.userid}
 					<!--action="<%=basePath%>save" method="post" -->
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>更新</legend>
@@ -151,10 +151,12 @@
 							btn:['确定'],
 							yes:function(){
 								//当你在iframe页面关闭自身时
+								window.parent.location.reload();//刷新父页面方法
 								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 								parent.layer.close(index); //再执行关闭 
-								}
-							});
+							}
+						});
+						
 					},
 					error : function(data) {
 						alert("服务器繁忙");

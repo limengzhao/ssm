@@ -66,7 +66,7 @@
 							</dd>
 							<dd>
 								<a href="javascript:;" data_id="2" data_title="菜单管理"
-									data-url="user.jsp" class="site_active" data_type="tabAdd">菜单管理</a>
+									data-url="<%=basePath%>findMenuPage" class="site_active" data_type="tabAdd">菜单管理</a>
 							</dd>
 							<dd>
 								<a href="javascript:;">角色管理</a>
@@ -105,10 +105,10 @@
 			</div>
 		</div>
 
-		<div class="layui-footer">
+		<!-- <div class="layui-footer">
 			底部固定区域
 			© layui.com - 底部固定区域
-		</div>
+		</div> -->
 	</div>
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script>

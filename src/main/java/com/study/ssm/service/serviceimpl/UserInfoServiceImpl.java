@@ -44,9 +44,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 
 	@Override
-	public List<User> findUserAll(Integer userid) {
+	public List<User> findUserAll(Integer userid,Integer limit,Integer pageNumber) {
 		
-		return userInfoDao.findAllUser(userid);
+		return userInfoDao.findAllUser(userid, limit, pageNumber);
 	}
 
 
@@ -60,5 +60,12 @@ public class UserInfoServiceImpl implements UserInfoService{
 	public void updateUser(User user) {
 		userInfoDao.updateUser(user);
 	}
+
+
+    @Override
+    public int selectPageCount(Integer userid, Integer limit, Integer pageNumber) {
+        // TODO Auto-generated method stub
+        return userInfoDao.selectPageCount (userid , limit , pageNumber);
+    }
     
 }

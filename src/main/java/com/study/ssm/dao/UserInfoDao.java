@@ -10,9 +10,12 @@ import com.study.ssm.core.User;
 
 public interface UserInfoDao {
 	
-	List<User> findAllUser(@Param(value="userid") Integer userid);
+	List<User> findAllUser(@Param(value="userid") Integer userid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
+	int selectPageCount(@Param(value="userid") Integer userid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
+	
+	void updateUser(User user);
     
-    User findUserById(Integer id);
+    User findUserById(@Param(value="userid")Integer id);
     
     User userLogin(@Param("username")String username,@Param("password")String password);
     
@@ -22,6 +25,6 @@ public interface UserInfoDao {
     
     void deleteUserById(Integer userid);
     
-    void updateUser(User user);
+    
 
 }

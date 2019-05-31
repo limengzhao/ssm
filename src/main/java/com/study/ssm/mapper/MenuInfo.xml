@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.ssm.dao.MenuInfoDao">
+	<resultMap type="Menu" id="Menu">
+		<id property="menuid" javaType="java.lang.Integer" column="menuid" jdbcType="INTEGER" />
+		<result property="menuName" javaType="java.lang.String" column="menu_name"
+			jdbcType="VARCHAR" />
+		<result property="parentMenuId" javaType="java.lang.Integer"
+			column="parent_menu_id" jdbcType="INTEGER" />
+		<result property="menuUrl" javaType="java.lang.String" column="menu_url"
+			jdbcType="VARCHAR" />
+		<result property="status" javaType="java.lang.String" column="status"
+			jdbcType="VARCHAR" />
+		<result property="remark" javaType="java.lang.String" column="remark"
+			jdbcType="VARCHAR" />
+		<result property="crateMenuUser" javaType="java.lang.Integer" column="crate_menu_user"
+			jdbcType="INTEGER" />
+		<result property="updateUser" javaType="java.lang.Integer" column="update_user"
+			jdbcType="INTEGER" />
+		<result property="createTime" javaType="java.util.Date" column="create_time"
+			jdbcType="DATE" />
+		<result property="updateTime" javaType="java.util.Date" column="update_time"
+			jdbcType="DATE" />
+	</resultMap>
+	<!-- include的sql -->
+	<sql id="Base_Column_List">
+	 	menuid,menu_name,parent_menu_id,menu_url,status,remark,crate_menu_user,create_time,update_time,update_user
+	</sql>
+	<!-- 查询全部菜单 -->
+	<select id="findMenuAll" resultType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30" parameterType="java.lang.Integer" resultMap="Menu">
+		select 
+		<include refid="Base_Column_List"></include>
+		from tbl_study_menu_info where 1=1
+		<if test="menuid!=null">
+		 and menuid=#{menuid}
+		</if>
+	</select>
+	<!-- 查询总条数 -->
+	<select id="selectPageCount" resultType="java.lang.Integer" statementType="PREPARED" timeout="30">
+		select count(1) from tbl_study_menu_info
+	</select>
+
+
+</mapper>

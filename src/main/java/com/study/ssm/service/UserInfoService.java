@@ -4,13 +4,15 @@ package com.study.ssm.service;
 
 import java.util.List;
 
+
 import com.study.ssm.core.User;
 
 
 public interface UserInfoService{
 	
 	
-	List<User> findUserAll(Integer userid);
+	List<User> findUserAll(Integer userid,Integer limit,Integer pageNumber);
+	int selectPageCount(Integer userid,Integer limit,Integer pageNumber);
     
     User findUserById(Integer id);
     

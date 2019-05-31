@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户管理</title>
+<title>菜单管理</title>
 <link rel="stylesheet" href="layui/css/layui.css" media="all">
 </head>
 <body>
@@ -43,19 +43,16 @@
 			    ,width:1000
 			    ,title:'用户管理'
 			    ,limit:10
-			    ,url: '<%=basePath%>findAll' //数据接口
+			    ,url: '<%=basePath%>findMenuAll' //数据接口
 			    ,toolbar: '#userToolbar'
 			    ,page: true //开启分页
 			    ,cols: [[ //表头
-			      {field: 'userid', title: 'ID', width:80, sort: true}
-			      ,{field: 'username', title: '用户名', width:100}
-			      ,{field: 'realname', title: '真实姓名', width:100}
-			      ,{field: 'password', title: '密码', width:80} 
-			      ,{field: 'createTime', title: '创建时间', width:100}
-			      ,{field: 'phone', title: '电话', width:100}
-			      ,{field: 'createUser', title: '创建人', width:80}
-			      ,{field: 'email', title: '邮箱', width:110}
-			      ,{field: 'status', title: '状态', width: 80}
+			      {field: 'menuid', title: 'ID', width:80, sort: true}
+			      ,{field: 'menuName', title: '菜单名称', width:100}
+			      ,{field: 'parentMenuId', title: '父级ID', width:100}
+			      ,{field: 'menuUrl', title: '菜单URL', width:80} 
+			      ,{field: 'status', title: '状态', width:100}
+			      ,{field: 'remark', title: '备注', width:100}
 			      ,{title: '操作', width:150, align:'center', toolbar: '#barOperator'}
 			    ]]
 			  });

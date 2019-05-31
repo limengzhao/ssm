@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.servlet.http.Cookie;
@@ -15,20 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.study.ssm.common.PropertiesConfigurer;
+import org.springframework.stereotype.Controller;
 import com.study.ssm.core.User;
+import org.springframework.ui.Model;
 import com.study.ssm.service.serviceimpl.UserInfoServiceImpl;
 import com.study.ssm.utils.Constant;
 import com.study.ssm.utils.ModelView;
 import com.study.ssm.utils.MsgConstant;
+import com.study.ssm.utils.ResultMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 @Controller
 public class UserInfoController {
@@ -181,21 +180,22 @@ public class UserInfoController {
     }
     /**
      * 查询全部用户数据
-     * @param model
+     * @param userid //用于重载数据查询
      * @return
      */
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public ConcurrentMap<String, Object> findAllUser(Integer userid) {
-        List<User> userList=userInfoServiceImpl.findUserAll(userid);
-        JSONArray jsonArray=JSONArray.parseArray(JSONObject.toJSONString(userList));
-        System.out.println(jsonArray.toJSONString());
-        ConcurrentMap<String, Object> concurrentMap = new ConcurrentHashMap<String,Object>();
-        concurrentMap.put ("code" , 0);
-        concurrentMap.put ("msg" , "成功");
-        concurrentMap.put ("count" , userList.size ());
-        concurrentMap.put ("data" , userList);
-    	return concurrentMap;
+    public ConcurrentMap<String, Object> findAllUser(int limit/****/,int page,Integer userid) {
+        System.out.println ( "limit==="+limit+"pageNumber======"+page);
+         Integer pageNumber=(page - 1) * limit;
+        List<User> userList=userInfoServiceImpl.findUserAll(userid,limit,pageNumber);
+        Integer pageCount=userInfoServiceImpl.selectPageCount (userid , limit , pageNumber);
+        ResultMap resultMap=new ResultMap ();
+        resultMap.setCode (0);
+        resultMap.setMsg ("成功");
+        resultMap.setCount (pageCount);
+        resultMap.setObjList (userList);
+    	return resultMap.getConcurrentMap ();
     }
     /**
             * 删除用户
@@ -213,10 +213,17 @@ public class UserInfoController {
         }
         return "0";
     }
+    /**
+     * 根据userId更新数据
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     public String updateUserById(User user) {
     	System.out.println("updateUser===="+user.getRealname());
+    	user.setUpdateTime (new Date ());
+    	user.setUpdateUser (user.getUserid ());//登录用户ID
     	userInfoServiceImpl.updateUser(user);
     	
     	return "0";
