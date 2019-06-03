@@ -12,6 +12,7 @@ public interface UserInfoService{
 	
 	
 	List<User> findUserAll(Integer userid,Integer limit,Integer pageNumber);
+	
 	int selectPageCount(Integer userid,Integer limit,Integer pageNumber);
     
     User findUserById(Integer id);

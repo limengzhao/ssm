@@ -14,17 +14,18 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     
     @Autowired
     MenuInfoDao menuInfoDao;
-
-    @Override 
-    public List<Menu> findMenuAll(int menuid,int limit,Integer pageNumber) {
-        // TODO Auto-generated method stub
-        return menuInfoDao.findMenuAll (menuid,limit,pageNumber);
-    }
-
+    
+    
     @Override
-    public int selectPageCount(int menuid,int limit,Integer pageNumber) {
-        // TODO Auto-generated method stub
-        return menuInfoDao.selectPageCount (menuid,limit,pageNumber);
+    public List<Menu> findAll(Integer menuid, Integer limit, Integer pageNumber) {
+        
+        return menuInfoDao.findAll (menuid , limit , pageNumber);
+    }
+    
+    @Override
+    public Integer selectPageCount(Integer menuid, Integer limit, Integer pageNumber) {
+        
+        return menuInfoDao.selectPageCount (menuid , limit , pageNumber);
     }
     
 }

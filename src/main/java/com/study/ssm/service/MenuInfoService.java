@@ -6,8 +6,7 @@ import com.study.ssm.core.Menu;
 
 public interface MenuInfoService {
     
-    List<Menu> findMenuAll(int menuid,int limit,Integer pageNumber);
+    List<Menu> findAll(Integer menuid,Integer limit,Integer pageNumber);
     
-    int selectPageCount(int menuid,int limit,Integer pageNumber);
-    
+    Integer selectPageCount(Integer menuid,Integer limit,Integer pageNumber);
 }

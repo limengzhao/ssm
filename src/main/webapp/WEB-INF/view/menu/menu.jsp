@@ -23,10 +23,10 @@
   <button class="layui-btn" data-type="reload">搜索</button>
 </div>
 	<div>
-		<table id="userTable" class="layui-table" lay-size="sm" lay-filter="table"></table>
-		<script type="text/html" id="userToolbar">
+		<table id="menuTable" class="layui-table" lay-size="sm" lay-filter="table"></table>
+		<script type="text/html" id="menuToolbar">
   			<div class="layui-btn-container">
-    			<button class="layui-btn" lay-event="addUser">新     增</button>
+    			<button class="layui-btn" lay-event="addMenu">新     增</button>
 			</div>
 		</script>
 	</div>
@@ -37,14 +37,14 @@
 			var $=layui.$;
 			//第一个实例
 			  table.render({
-			    elem: '#userTable'
-			    ,id:'userTableReload'
+			    elem: '#menuTable'
+			    ,id:'menuTableReload'
 			    ,height:540
 			    ,width:1000
 			    ,title:'用户管理'
 			    ,limit:10
 			    ,url: '<%=basePath%>findMenuAll' //数据接口
-			    ,toolbar: '#userToolbar'
+			    ,toolbar: '#menuToolbar'
 			    ,page: true //开启分页
 			    ,cols: [[ //表头
 			      {field: 'menuid', title: 'ID', width:80, sort: true}
@@ -58,8 +58,8 @@
 			  });
 			//监听按钮事件
 			table.on('toolbar(table)',function(obj){
-				if(obj.event=="addUser"){
-					location.href="<%=basePath%>register?type=add"
+				if(obj.event=="addMenu"){
+					location.href="<%=basePath%>addMenuPage"
 				}
 			});
 			//表格重载
@@ -67,7 +67,7 @@
 					reload: function(){
 					      var demoReload = $('#demoReload');
 					      //执行重载
-					      table.reload('userTableReload', {
+					      table.reload('menuTableReload', {
 					        page: {
 					          curr: 1 //重新从第 1 页开始
 					        }
@@ -122,8 +122,8 @@
 		});
 	</script>
 	<script type="text/html" id="barOperator">
-       <a class="layui-btn layui-btn-xs" lay-event="updateUser">更新</a>
-       <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delUser">删除</a>
+       <a class="layui-btn layui-btn-xs" lay-event="updateMenu">更新</a>
+       <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delMenu">删除</a>
     </script>
     
     

@@ -2,7 +2,7 @@ package com.study.ssm.core;
 
 import java.util.Date;
 /**
- * ²Ëµ¥ÊµÌåÀà
+ * ï¿½Ëµï¿½Êµï¿½ï¿½ï¿½ï¿½
  * @author limengzhao
  *
  */
@@ -13,7 +13,7 @@ public class Menu {
     private Integer parentMenuId;
     private String menuUrl;
     private char status;
-    private String remark;//±¸×¢
+    private String remark;//ï¿½ï¿½×¢
     private Integer crateMenuUser;
     private Date createTime;
     private Date updateTime;
