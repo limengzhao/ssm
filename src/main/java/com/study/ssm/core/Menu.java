@@ -12,7 +12,7 @@ public class Menu {
     private String menuName;
     private Integer parentMenuId;
     private String menuUrl;
-    private char status;
+    private String status;
     private String remark;//��ע
     private Integer crateMenuUser;
     private Date createTime;
@@ -45,10 +45,11 @@ public class Menu {
     public void setMenuUrl(String menuUrl) {
         this.menuUrl = menuUrl;
     }
-    public char getStatus() {
+    
+    public String getStatus() {
         return status;
     }
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     public Integer getCrateMenuUser() {

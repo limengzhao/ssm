@@ -40,6 +40,19 @@
 	<select id="selectPageCount" resultType="java.lang.Integer" statementType="PREPARED" timeout="30">
 		select count(1) from tbl_study_menu_info
 	</select>
+	<!-- 根据ID查询菜单 -->
+	<select id="findMenuById" resultType="com.study.ssm.core.Menu" parameterType="java.lang.Integer" statementType="PREPARED" timeout="30" resultMap="Menu">
+		select 
+		<include refid="Base_Column_List"/>
+		from tbl_study_menu_info where menuid=#{menuid}
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="saveMenu" useGeneratedKeys="true" keyProperty="menuid" parameterType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="20">
+	 insert into tbl_study_menu_info
+	 (menu_url,menu_name,status,crate_menu_user,create_time,update_time,update_user,parent_menu_id,remark)values
+	 (#{menuUrl},#{menuName},#{status},#{crateMenuUser},#{createTime,jdbcType=DATE},#{updateTime,jdbcType=DATE},#{updateUser},#{parentMenuId},#{remark})
+	</insert>
 
 
 </mapper>

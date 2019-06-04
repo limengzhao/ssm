@@ -12,6 +12,10 @@ public interface MenuInfoDao {
      List<Menu> findAll(@Param(value="menuid")Integer menuid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
     
      Integer selectPageCount(@Param(value="menuid")Integer menuid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
+     
+     void saveMenu(Menu menu);
+     
+     Menu findMenuById(@Param(value="menuid")Integer menuid);
     
     
 }

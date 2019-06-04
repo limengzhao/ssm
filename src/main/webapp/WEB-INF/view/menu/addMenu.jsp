@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+    String path = request.getContextPath();
+			String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+					+ path + "/";
 %>
 <html>
 <head>
@@ -12,22 +12,151 @@
 <title>添加菜单</title>
 <link rel="stylesheet" href="layui/css/layui.css">
 <script type="text/javascript" src="layui/layui.js"></script>
+<style type="text/css">
+.layui-col {
+	text-align: center;
+}
+
+.layui-form-label {
+	width: 100px;
+}
+
+.layui-input-block {
+	margin-left: 130px;
+	margin-top: 15px;
+}
+</style>
 </head>
 <body>
-	<div class="layui-fluid">
+	<div class="layui-container">
 		<div class="layui-row">
-			<h1 style="text-align: center; margin-top: 30px;">菜单添加</h1>
+			<h1 style="text-align: center; margin-top: 30px;">${title}</h1>
 		</div>
-		<div class="layui-row" style="margin-top: 50px;">
-			<form class="layui-form" method="post">
-				<div class="layui-form-item">
-				<label class="layui-form-label">输入框</label>
-				<div class="layui-input-block">
-      			<input type="text" style="width: 200px;" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-    			</div>
-				</div>
-			</form>
+		<div class="layui-row layui-col-space10" style="margin-top: 10px;">
+			<div class="layui-col-md12 layui-col">
+				<form class="layui-form" method="post">
+				<input type="hidden" name="menuid" value="${menu.menuid==null?'':menu.menuid}"/>${menu.menuid}
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>${title}</legend>
+						<div class="layui-form-item">
+							<label class="layui-form-label">菜单名称</label>
+							<div class="layui-input-block">
+								<input type="text" name="menuName" value="${menu.menuName==null?'':menu.menuName}" required lay-verify="required"
+									placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">父级菜单ID</label>
+							<div class="layui-input-block">
+								<select name="parentMenuId" lay-verify="required">
+									<option value=""></option>
+									<option value="0">1</option>
+									<option value="1">2</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">父级菜单名称</label>
+							<div class="layui-input-block">
+								<input type="text" name="title" required lay-verify="required"
+									placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">菜单URL</label>
+							<div class="layui-input-block">
+								<input type="text" name="menuUrl" value="${menu.menuUrl==null?'':menu.menuUrl}" required lay-verify="required"
+									placeholder="菜单URL" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">状态</label>
+							<div class="layui-input-block layui-form"
+								lay-filter="selectFilter">
+								<select id="select" name="status" lay-verify="required">
+									<option value="">请选择</option>
+									<option value="0">已启用</option>
+									<option value="1">未启用</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item layui-form-text">
+							<label class="layui-form-label">备注</label>
+							<div class="layui-input-block">
+								<textarea name="remark" placeholder="请输入内容" class="layui-textarea">${menu.remark==null?'':menu.remark}</textarea>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<button class="layui-btn" lay-submit lay-filter="saveOrUpdate">${menu.menuid==null?'保存':'更新'}</button>
+						     <!-- <button type="reset" class="layui-btn layui-btn-primary" >重置</button> -->
+						     <button type="button" id="cancel"  class="layui-btn layui-btn-normal">取消</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</div>
 	</div>
+
+
+	<script type="text/javascript">
+		layui.use([ 'layer', 'jquery', 'form' ], function() {
+			var layer = layui.layer;
+			var form = layui.form;
+			var $ = layui.$;
+			
+			$('#cancel').on('click',function(data){
+				//当你在iframe页面关闭自身时
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.layer.close(index); //再执行关闭 
+			});
+			
+			form.on('submit(saveOrUpdate)',function(data){
+				var menuid='${menu.menuid}';
+				if(menuid!=null&&menuid!=""){
+					alert(menuid);
+				}else{
+					var jsonuserinfo = JSON.stringify($('.layui-form').serializeObject());  
+					$.ajax({
+						url:'<%=basePath%>saveMenu',
+						method:'post',
+						data:jsonuserinfo,
+						dataType:'json',
+						contentType: "application/json",
+						success:function(res){
+							//当你在iframe页面关闭自身时
+							window.parent.location.reload();//刷新父页面方法
+							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+							parent.layer.close(index); //再执行关闭 
+						},
+						error:function(data){
+							//当你在iframe页面关闭自身时
+							window.parent.location.reload();//刷新父页面方法
+							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+							parent.layer.close(index); //再执行关闭 
+						}
+					});
+				}
+			});
+			
+			
+			//将一个表单的数据返回成JSON对象  
+			$.fn.serializeObject = function() {  
+			    var o = {};  
+			    var a = this.serializeArray();  
+			    $.each(a, function() {  
+			        if (o[this.name]) {  
+			            if (!o[this.name].push) {  
+			                o[this.name] = [ o[this.name] ];  
+			            }  
+			            o[this.name].push(this.value || '');  
+			        } else {  
+			            o[this.name] = this.value || '';  
+			        }  
+			    });  
+			    return o;  
+			};
+			
+		});
+	</script>
 </body>
 </html>

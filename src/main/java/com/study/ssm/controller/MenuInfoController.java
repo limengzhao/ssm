@@ -1,5 +1,6 @@
 package com.study.ssm.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
@@ -8,11 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.ssm.core.Menu;
 import com.study.ssm.service.serviceimpl.MenuInfoServiceImpl;
+import com.study.ssm.utils.ModelView;
 import com.study.ssm.utils.ResultMap;
 
 
@@ -40,8 +45,19 @@ public class MenuInfoController {
      * @return
      */
     @RequestMapping(value="/addMenuPage")
-    public String addMenuPage(){
-        
+    public String addMenuPage(Model model){
+        ModelView.modelView ("title" , "添加菜单" , model);
+        return "view/menu/addMenu";
+    }
+    /**
+     * 跳转菜单更新页面
+     * @return
+     */
+    @RequestMapping(value="/updateMenuPage")
+    public String updateMenuPage(Integer menuid,Model model){
+        Menu menu=menuInfoServiceImpl.findMenuById (menuid);
+        ModelView.modelView ("title" , "更新菜单" , model);
+        ModelView.modelView ("menu" , menu , model);
         return "view/menu/addMenu";
     }
     
@@ -63,9 +79,19 @@ public class MenuInfoController {
             System.out.println ("menuInfoServiceImpl为空！！！");
             return null;
         }
-        
-        
-       
+    }
+    /**
+     * saveMenu
+     * @param menu
+     * @return
+     */
+    @RequestMapping(value="/saveMenu",method=RequestMethod.POST)
+    @ResponseBody
+    public String saveMenu(@RequestBody Menu menu){
+        menu.setCreateTime (new Date ());
+        menu.setCrateMenuUser (0);
+        menuInfoServiceImpl.saveMenu (menu);
+        return "true";
     }
     
 }

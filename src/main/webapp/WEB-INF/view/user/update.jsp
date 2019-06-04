@@ -28,7 +28,7 @@
 		<div class="layui-row layui-col-space10" style="margin-top: 10px;">
 			<div class="layui-col-md8 layui-col">
 				<form class="layui-form layui-form-pane" method="post">
-				<input type="hidden" name="userid" value="${user.userid}"/>222${user.userid}
+				<input type="hidden" name="userid" value="${user.userid}"/>
 					<!--action="<%=basePath%>save" method="post" -->
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>更新</legend>

@@ -34,6 +34,7 @@
 	<script type="text/javascript">
 		layui.use(['table','jquery','layer'],function(){
 			var table=layui.table;
+			var layer=layui.layer;
 			var $=layui.$;
 			//第一个实例
 			  table.render({
@@ -41,9 +42,9 @@
 			    ,id:'menuTableReload'
 			    ,height:540
 			    ,width:1000
-			    ,title:'用户管理'
+			    ,title:'菜单管理'
 			    ,limit:10
-			    ,url: '<%=basePath%>findMenuAll' //数据接口
+			    ,url: '<%=basePath%>findMenuAll'
 			    ,toolbar: '#menuToolbar'
 			    ,page: true //开启分页
 			    ,cols: [[ //表头
@@ -59,7 +60,12 @@
 			//监听按钮事件
 			table.on('toolbar(table)',function(obj){
 				if(obj.event=="addMenu"){
-					location.href="<%=basePath%>addMenuPage"
+					layer.open({
+						type:2,
+						title:'添加菜单',
+						content:'<%=basePath%>addMenuPage',
+						area:["80%","80%"]
+					});
 				}
 			});
 			//表格重载
@@ -72,7 +78,7 @@
 					          curr: 1 //重新从第 1 页开始
 					        }
 					        ,where: {
-					        	userid: demoReload.val()
+					        	menuid: demoReload.val()
 					        }
 					      });
 					    },
@@ -85,15 +91,15 @@
 			//监听工具
 			  table.on('tool(table)',function(obj){
 				  var data = obj.data;
-				  var userid={
-							 "userid":data.userid
+				  var menuid={
+							 "menuid":data.menuid
 					  }
-				  if(obj.event=="updateUser"){//查看这条数据
+				  if(obj.event=="updateMenu"){//查看这条数据
 					  layer.open({
 						  type:2,
-						  title:'更新用户',
+						  title:'更新菜单',
 						  offset: '30px',
-						  content:'<%=basePath%>userUpdate?userid='+data.userid,
+						  content:'<%=basePath%>updateMenuPage?menuid='+data.menuid,
 						  area:["80%","80%"]
 					  });
 				  

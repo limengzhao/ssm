@@ -27,5 +27,16 @@ public class MenuInfoServiceImpl implements MenuInfoService {
         
         return menuInfoDao.selectPageCount (menuid , limit , pageNumber);
     }
+
+    @Override
+    public void saveMenu(Menu menu) {
+        menuInfoDao.saveMenu (menu);
+    }
+
+    @Override
+    public Menu findMenuById(Integer menuid) {
+       
+        return menuInfoDao.findMenuById (menuid);
+    }
     
 }
