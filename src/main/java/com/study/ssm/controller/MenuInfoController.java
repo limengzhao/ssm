@@ -60,6 +60,11 @@ public class MenuInfoController {
         ModelView.modelView ("menu" , menu , model);
         return "view/menu/addMenu";
     }
+    @RequestMapping(value="/updateMenu",method=RequestMethod.POST)
+    public String updateMenu(Menu menu){
+        menuInfoServiceImpl.updateMenu (menu);
+        return "true";
+    }
     
     @RequestMapping(value="/findMenuAll")
     @ResponseBody
@@ -87,7 +92,7 @@ public class MenuInfoController {
      */
     @RequestMapping(value="/saveMenu",method=RequestMethod.POST)
     @ResponseBody
-    public String saveMenu(@RequestBody Menu menu){
+    public String saveMenu(Menu menu){
         menu.setCreateTime (new Date ());
         menu.setCrateMenuUser (0);
         menuInfoServiceImpl.saveMenu (menu);

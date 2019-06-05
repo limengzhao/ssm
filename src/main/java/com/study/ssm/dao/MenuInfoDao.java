@@ -17,5 +17,6 @@ public interface MenuInfoDao {
      
      Menu findMenuById(@Param(value="menuid")Integer menuid);
     
+     void updateMenu(Menu menu);
     
 }

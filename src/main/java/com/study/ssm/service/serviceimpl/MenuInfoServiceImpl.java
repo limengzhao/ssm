@@ -38,5 +38,10 @@ public class MenuInfoServiceImpl implements MenuInfoService {
        
         return menuInfoDao.findMenuById (menuid);
     }
+
+    @Override
+    public void updateMenu(Menu menu) {
+        menuInfoDao.updateMenu (menu);
+    }
     
 }

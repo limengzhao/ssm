@@ -35,7 +35,7 @@
 		<div class="layui-row layui-col-space10" style="margin-top: 10px;">
 			<div class="layui-col-md12 layui-col">
 				<form class="layui-form" method="post">
-				<input type="hidden" name="menuid" value="${menu.menuid==null?'':menu.menuid}"/>${menu.menuid}
+				<input type="hidden" name="menuid" value="${menu.menuid==null?'':menu.menuid}"/>
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>${title}</legend>
 						<div class="layui-form-item">
@@ -113,31 +113,56 @@
 			form.on('submit(saveOrUpdate)',function(data){
 				var menuid='${menu.menuid}';
 				if(menuid!=null&&menuid!=""){
-					alert(menuid);
+					//var jsonuserinfo = JSON.stringify($('.layui-form').serializeObject());  
+					$.ajax({
+						url:'<%=basePath%>updateMenu',
+						method:'post',
+						data:data.field,
+						success:function(res){
+							alert(res);
+							layer.open({
+								type:0,
+								content:'更新成功！',
+								btn:['确定'],
+								yes:function(){
+									//当你在iframe页面关闭自身时
+									window.parent.location.reload();//刷新父页面方法
+									var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+									parent.layer.close(index); //再执行关闭 
+								}
+							});
+						},
+						error:function(){
+							alert('服务器繁忙！');
+						}
+					});
+					return false;
 				}else{
-					var jsonuserinfo = JSON.stringify($('.layui-form').serializeObject());  
+					//var jsonuserinfo = JSON.stringify($('.layui-form').serializeObject());  
 					$.ajax({
 						url:'<%=basePath%>saveMenu',
 						method:'post',
-						data:jsonuserinfo,
-						dataType:'json',
-						contentType: "application/json",
+						data:data.field,
 						success:function(res){
-							//当你在iframe页面关闭自身时
-							window.parent.location.reload();//刷新父页面方法
-							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-							parent.layer.close(index); //再执行关闭 
+							layer.open({
+								type:0,
+								content:'保存成功！',
+								btn:['确定'],
+								yes:function(){
+									//当你在iframe页面关闭自身时
+									window.parent.location.reload();//刷新父页面方法
+									var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+									parent.layer.close(index); //再执行关闭 
+								}
+							});
 						},
 						error:function(data){
-							//当你在iframe页面关闭自身时
-							window.parent.location.reload();//刷新父页面方法
-							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-							parent.layer.close(index); //再执行关闭 
+							alert('服务器繁忙');
 						}
 					});
+					return false;
 				}
 			});
-			
 			
 			//将一个表单的数据返回成JSON对象  
 			$.fn.serializeObject = function() {  

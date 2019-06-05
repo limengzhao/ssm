@@ -53,6 +53,22 @@
 	 (menu_url,menu_name,status,crate_menu_user,create_time,update_time,update_user,parent_menu_id,remark)values
 	 (#{menuUrl},#{menuName},#{status},#{crateMenuUser},#{createTime,jdbcType=DATE},#{updateTime,jdbcType=DATE},#{updateUser},#{parentMenuId},#{remark})
 	</insert>
+	<!-- 更新菜单 -->
+	<update id="updateMenu" parameterType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30">
+	 update tbl_study_menu_info set 
+	 menu_name=#{menuName},
+	 parent_menu_id=#{parentMenuId},
+	 menu_url=#{menuUrl},
+	 status=#{status},
+	 remark=#{remark},
+	 crate_menu_user=#{crateMenuUser},
+	 create_time=#{createTime},
+	 update_time=#{updateTime},
+	 update_user=#{updateUser}
+	 where menuid=#{menuid}
+	</update>
+
+
 
 
 </mapper>

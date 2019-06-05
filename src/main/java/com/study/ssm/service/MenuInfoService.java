@@ -13,4 +13,6 @@ public interface MenuInfoService {
     void saveMenu(Menu menu);
     
     Menu findMenuById(Integer menuid);
+    
+    void updateMenu(Menu menu);
 }
