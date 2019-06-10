@@ -46,22 +46,20 @@
 							</div>
 						</div>
 						<div class="layui-form-item">
-							<label class="layui-form-label">父级菜单ID</label>
+							<label class="layui-form-label">父级菜单</label>
 							<div class="layui-input-block">
-								<select name="parentMenuId" lay-verify="required">
-									<option value=""></option>
-									<option value="0">1</option>
-									<option value="1">2</option>
+								<select id="parentMenu" name="parentMenuId" lay-verify="required" lay-filter="menuName">
+									<option value="请选择父级菜单"></option>
 								</select>
 							</div>
 						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">父级菜单名称</label>
+						<!-- <div class="layui-form-item">
+							<label class="layui-form-label">父级菜单</label>
 							<div class="layui-input-block">
 								<input type="text" name="title" required lay-verify="required"
 									placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
 							</div>
-						</div>
+						</div> -->
 						<div class="layui-form-item">
 							<label class="layui-form-label">菜单URL</label>
 							<div class="layui-input-block">
@@ -103,7 +101,21 @@
 			var layer = layui.layer;
 			var form = layui.form;
 			var $ = layui.$;
-			
+			//动态获取select option 
+			$.ajax({
+				url:'<%=basePath%>getParentMenu',
+				method:'GET',
+				data:'null',
+				success:function(data){
+					$.each(data,function(index,item){
+						$('#parentMenu').append(new Option(item.menuName, item.menuid));// 下拉菜单里添加元素
+					});
+					layui.form.render("select");
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
 			$('#cancel').on('click',function(data){
 				//当你在iframe页面关闭自身时
 				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
@@ -113,13 +125,11 @@
 			form.on('submit(saveOrUpdate)',function(data){
 				var menuid='${menu.menuid}';
 				if(menuid!=null&&menuid!=""){
-					//var jsonuserinfo = JSON.stringify($('.layui-form').serializeObject());  
 					$.ajax({
 						url:'<%=basePath%>updateMenu',
 						method:'post',
 						data:data.field,
 						success:function(res){
-							alert(res);
 							layer.open({
 								type:0,
 								content:'更新成功！',
@@ -132,7 +142,7 @@
 								}
 							});
 						},
-						error:function(){
+						error:function(res){
 							alert('服务器繁忙！');
 						}
 					});
@@ -164,22 +174,7 @@
 				}
 			});
 			
-			//将一个表单的数据返回成JSON对象  
-			$.fn.serializeObject = function() {  
-			    var o = {};  
-			    var a = this.serializeArray();  
-			    $.each(a, function() {  
-			        if (o[this.name]) {  
-			            if (!o[this.name].push) {  
-			                o[this.name] = [ o[this.name] ];  
-			            }  
-			            o[this.name].push(this.value || '');  
-			        } else {  
-			            o[this.name] = this.value || '';  
-			        }  
-			    });  
-			    return o;  
-			};
+			
 			
 		});
 	</script>

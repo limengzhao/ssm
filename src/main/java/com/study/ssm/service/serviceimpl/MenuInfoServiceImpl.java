@@ -17,9 +17,9 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     
     
     @Override
-    public List<Menu> findAll(Integer menuid, Integer limit, Integer pageNumber) {
+    public List<Menu> findPage(Integer menuid, Integer limit, Integer pageNumber) {
         
-        return menuInfoDao.findAll (menuid , limit , pageNumber);
+        return menuInfoDao.findPage (menuid , limit , pageNumber);
     }
     
     @Override
@@ -42,6 +42,17 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     @Override
     public void updateMenu(Menu menu) {
         menuInfoDao.updateMenu (menu);
+    }
+
+    @Override
+    public List<Menu> getParentMenu() {
+        
+        return menuInfoDao.getParentMenu ();
+    }
+
+    @Override
+    public List<Menu> findAll() {
+        return menuInfoDao.findAll ();
     }
     
 }

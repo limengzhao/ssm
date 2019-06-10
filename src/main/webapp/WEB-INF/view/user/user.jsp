@@ -55,7 +55,7 @@
 			      ,{field: 'phone', title: '电话', width:100}
 			      ,{field: 'createUser', title: '创建人', width:80}
 			      ,{field: 'email', title: '邮箱', width:110}
-			      ,{field: 'status', title: '状态', width: 80}
+			      ,{field: 'status', title: '状态', width: 80,templet:'#viewStatus'}
 			      ,{title: '操作', width:150, align:'center', toolbar: '#barOperator'}
 			    ]]
 			  });
@@ -128,6 +128,15 @@
        <a class="layui-btn layui-btn-xs" lay-event="updateUser">更新</a>
        <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delUser">删除</a>
     </script>
+    <script type="text/html" id="viewStatus">
+		{{# if (d.status=== '0') { }}   
+  		启用
+		{{# } else if(d.status=== '1') { }}  
+  		禁用
+		{{# } else { }}  
+  		未知
+		{{# } }}
+	</script>
     
     
 	

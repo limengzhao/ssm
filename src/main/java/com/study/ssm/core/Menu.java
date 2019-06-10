@@ -19,8 +19,15 @@ public class Menu {
     private Date updateTime;
     private Integer updateUser;
    
+    private String parentMenu;
     
     
+    public String getParentMenu() {
+        return parentMenu;
+    }
+    public void setParentMenu(String parentMenu) {
+        this.parentMenu = parentMenu;
+    }
     public String getRemark() {
         return remark;
     }

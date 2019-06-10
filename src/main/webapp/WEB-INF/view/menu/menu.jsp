@@ -44,18 +44,29 @@
 			    ,width:1000
 			    ,title:'菜单管理'
 			    ,limit:10
-			    ,url: '<%=basePath%>findMenuAll'
+			    ,url: '<%=basePath%>findPageMenu'
 			    ,toolbar: '#menuToolbar'
 			    ,page: true //开启分页
 			    ,cols: [[ //表头
 			      {field: 'menuid', title: 'ID', width:80, sort: true}
 			      ,{field: 'menuName', title: '菜单名称', width:100}
-			      ,{field: 'parentMenuId', title: '父级ID', width:100}
+			      ,{field: 'parentMenu', title: '父级菜单名称', width:100}
 			      ,{field: 'menuUrl', title: '菜单URL', width:80} 
-			      ,{field: 'status', title: '状态', width:100}
+			      ,{field: 'status', title: '状态', width:100,templet:'#viewStatus'}
 			      ,{field: 'remark', title: '备注', width:100}
 			      ,{title: '操作', width:150, align:'center', toolbar: '#barOperator'}
 			    ]]
+			    ,done: function(res, curr, count){
+			        //如果是异步请求数据方式，res即为你接口返回的信息。
+			        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+			        console.log(res);
+			        
+			        //得到当前页码
+			        console.log(curr); 
+			        
+			        //得到数据总量
+			        console.log(count);
+			      }
 			  });
 			//监听按钮事件
 			table.on('toolbar(table)',function(obj){
@@ -131,13 +142,15 @@
        <a class="layui-btn layui-btn-xs" lay-event="updateMenu">更新</a>
        <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delMenu">删除</a>
     </script>
-    
-    
-	
-	
-	
-
-
+    <script type="text/html" id="viewStatus">
+		{{# if (d.status=== '0') { }}   
+  		启用
+		{{# } else if(d.status=== '1') { }}  
+  		禁用
+		{{# } else { }}  
+  		未知
+		{{# } }}
+	</script>
 
 </body>
 </html>

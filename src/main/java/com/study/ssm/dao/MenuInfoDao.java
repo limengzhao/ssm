@@ -9,7 +9,7 @@ import com.study.ssm.core.Menu;
 
 public interface MenuInfoDao {
     
-     List<Menu> findAll(@Param(value="menuid")Integer menuid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
+     List<Menu> findPage(@Param(value="menuid")Integer menuid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
     
      Integer selectPageCount(@Param(value="menuid")Integer menuid,@Param(value="limit")Integer limit,@Param(value="pageNumber")Integer pageNumber);
      
@@ -18,5 +18,11 @@ public interface MenuInfoDao {
      Menu findMenuById(@Param(value="menuid")Integer menuid);
     
      void updateMenu(Menu menu);
+     
+     List<Menu> getParentMenu();
+     
+     List<Menu>findAll();
+     
+     
     
 }

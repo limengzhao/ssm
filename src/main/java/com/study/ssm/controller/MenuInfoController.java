@@ -1,5 +1,6 @@
 package com.study.ssm.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
@@ -30,12 +31,28 @@ public class MenuInfoController {
     @Autowired
     private MenuInfoServiceImpl menuInfoServiceImpl;
     
+    @RequestMapping(value="/getParentMenu",method=RequestMethod.GET)
+    @ResponseBody
+    public List<Menu> getParentMenu(Model model){
+        List<Menu> menuList=menuInfoServiceImpl.getParentMenu ();
+        if(!menuList.isEmpty ()){
+            ModelView.modelView ("menuList" , menuList , model);
+            return menuList;
+        }else{
+            return null;
+        }
+        
+    }
+    
+    
+    
+    
     
     /**
      * 跳转菜单页面
      * @return
      */
-    @RequestMapping(value="/findMenuPage")
+    @RequestMapping(value="/findMenuPanel")
     public String findMenuPage(){
         
         return "view/menu/menu";
@@ -60,23 +77,46 @@ public class MenuInfoController {
         ModelView.modelView ("menu" , menu , model);
         return "view/menu/addMenu";
     }
+    /**
+     * 更新menu
+     * @param menu
+     * @return
+     */
     @RequestMapping(value="/updateMenu",method=RequestMethod.POST)
+    @ResponseBody
     public String updateMenu(Menu menu){
+        menu.setUpdateTime (new Date ());
+        menu.setUpdateUser (1);
         menuInfoServiceImpl.updateMenu (menu);
         return "true";
     }
     
-    @RequestMapping(value="/findMenuAll")
+    @RequestMapping(value="/findPageMenu")
     @ResponseBody
     public ConcurrentMap<String, Object> findMenuAll(int limit,int page,Integer menuid){
         Integer pageNumber=(page - 1) * limit;
+        List<Menu> addMenuList=new ArrayList<Menu> ();
         if(menuInfoServiceImpl!=null){
-            List<Menu> menuList=menuInfoServiceImpl.findAll (menuid , limit , pageNumber);
+            List<Menu> menuList=menuInfoServiceImpl.findPage (menuid , limit , pageNumber);
+            List<Menu> menuListParent=menuInfoServiceImpl.findAll ();
+            for (Menu menu : menuList) {
+                Integer pid=menu.getParentMenuId ();
+                if(pid!=0){
+                    for (Menu menu2 : menuListParent) {
+                        if(menu2.getMenuid ()==pid){
+                            menu.setParentMenu (menu2.getMenuName ()); 
+                        }
+                    } 
+                }else{
+                    menu.setParentMenu (""); 
+                }
+                addMenuList.add (menu);
+            }
             int pageCount=menuInfoServiceImpl.selectPageCount (menuid,limit,pageNumber);
             ResultMap resultMap=new ResultMap ();
             resultMap.setCode (0);
             resultMap.setMsg ("查询成功");
-            resultMap.setObjList (menuList);
+            resultMap.setObjList (addMenuList);
             resultMap.setCount (pageCount);
             return resultMap.getConcurrentMap ();
         }else {

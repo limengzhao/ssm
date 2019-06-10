@@ -27,14 +27,21 @@
 	<sql id="Base_Column_List">
 	 	menuid,menu_name,parent_menu_id,menu_url,status,remark,crate_menu_user,create_time,update_time,update_user
 	</sql>
-	<!-- 查询全部菜单 -->
-	<select id="findAll" resultType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30"  resultMap="Menu">
+	<!-- 查询分页查询菜单 -->
+	<select id="findPage" resultType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30"  resultMap="Menu">
 		select 
 		<include refid="Base_Column_List"></include>
 		from tbl_study_menu_info where 1=1
 		<if test="menuid!=null">
 		 and menuid=#{menuid}
 		</if>
+		limit #{pageNumber},#{limit}
+	</select>
+	<!-- 查询查询全部菜单 -->
+	<select id="findAll" resultType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30"  resultMap="Menu">
+		select 
+		<include refid="Base_Column_List"></include>
+		from tbl_study_menu_info
 	</select>
 	<!-- 查询总条数 -->
 	<select id="selectPageCount" resultType="java.lang.Integer" statementType="PREPARED" timeout="30">
@@ -46,7 +53,10 @@
 		<include refid="Base_Column_List"/>
 		from tbl_study_menu_info where menuid=#{menuid}
 	</select>
-	
+	<!-- 查询所有菜单名称和ID -->
+	<select id="getParentMenu" resultType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="30" resultMap="Menu">
+		select menuid,menu_name from tbl_study_menu_info
+	</select>	
 	<!-- 插入 -->
 	<insert id="saveMenu" useGeneratedKeys="true" keyProperty="menuid" parameterType="com.study.ssm.core.Menu" statementType="PREPARED" timeout="20">
 	 insert into tbl_study_menu_info
