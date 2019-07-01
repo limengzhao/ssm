@@ -69,7 +69,8 @@
 									data-url="<%=basePath%>findMenuPanel" class="site_active" data_type="tabAdd">菜单管理</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">角色管理</a>
+								<a href="javascript:;" data_id="3" data_title="角色管理" 
+									data-url="<%=basePath%>findRolePage" class="site_active" data_type="tabAdd">角色管理</a>
 							</dd>
 							<dd>
 								<a href="">超链接</a>

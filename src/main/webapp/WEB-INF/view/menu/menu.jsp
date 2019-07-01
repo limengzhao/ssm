@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><%
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
@@ -114,16 +115,16 @@
 						  area:["80%","80%"]
 					  });
 				  
-				  }else if(obj.event=="delUser"){
+				  }else if(obj.event=="delMenu"){
 					  layer.confirm('确认删除？',function(index){
 						  obj.del();
 						  layer.close(index);
 						  $.ajax({
-							  	url:'<%=basePath%>deleteUser',
-								data:userid,
+							  	url:'<%=basePath%>deleteMenu',
+								data:menuid,
 								type:'get',
 								success:function(data){
-									if(data=="0"){
+									if(data=="true"){
 										layer.msg('删除操作成功');
 									}else{
 										layer.msg('删除操作失败');

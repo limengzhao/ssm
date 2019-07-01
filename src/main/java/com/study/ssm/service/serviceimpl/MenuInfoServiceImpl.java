@@ -54,5 +54,10 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     public List<Menu> findAll() {
         return menuInfoDao.findAll ();
     }
+
+    @Override
+    public void deleteMenu(Integer menuid) {
+        menuInfoDao.deleteMenu (menuid);
+    }
     
 }

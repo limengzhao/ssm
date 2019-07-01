@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.ssm.dao.RoleInfoDao">
+	<resultMap type="Role" id="Role">
+	 <id property="roleId" javaType="java.lang.Integer" column="role_id" jdbcType="INTEGER"/>
+	 <result property="roleName" javaType="java.lang.String" column="role_name" jdbcType="VARCHAR"/>
+	 <result property="roleDescription" javaType="java.lang.String" column="role_description" jdbcType="VARCHAR"/>
+	 <result property="roleStatus" javaType="java.lang.String" column="role_status" jdbcType="VARCHAR"/>
+	 <result property="regDate" javaType="java.util.Date" column="reg_date" jdbcType="DATE"/>
+	 <result property="regUserId" javaType="java.lang.Integer" column="reg_user_id" jdbcType="INTEGER"/>
+	 <result property="auditStatus" javaType="java.lang.String" column="audit_status" jdbcType="VARCHAR"/>
+	 <result property="permitUserId" javaType="java.lang.Integer" column="permit_user_id" jdbcType="INTEGER"/>
+	<result property="permitDate" javaType="java.util.Date" column="permit_date" jdbcType="DATE"/>
+	<result property="resv1" javaType="java.lang.String" column="resv_1" jdbcType="VARCHAR"/>
+	<result property="resv2" javaType="java.lang.String" column="resv_2" jdbcType="VARCHAR"/>
+	<result property="resv3" javaType="java.lang.String" column="resv_3" jdbcType="VARCHAR"/>
+	<result property="resv4" javaType="java.lang.String" column="resv_4" jdbcType="VARCHAR"/>
+	<result property="resv5" javaType="java.lang.String" column="resv_5" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- include的sql -->
+	<sql id="Base_Column_List">
+	 	role_id,role_name,role_description,role_status,reg_date,reg_user_id,audit_status,permit_user_id,permit_date,resv_1,resv_2,resv_3,resv_4,resv_5
+	</sql>
+	<!-- 查询全部角色 -->
+	<select id="findRoleAll" resultType="com.study.ssm.core.Role" statementType="PREPARED" timeout="30"  resultMap="Role">
+	 select <include refid="Base_Column_List"/>
+	 from tbl_study_role_info where 1=1
+	 <if test="roleId!=null">
+	  and role_id=#{roleId}
+	 </if>
+	 limit #{pageNumber},#{limit}
+	</select>
+	
+	<!-- 查询全部角色条数 -->
+	<select id="selectPageCount" resultType="java.lang.Integer" statementType="PREPARED" timeout="30">
+	 select count(1) from tbl_study_role_info
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="saveRole" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.study.ssm.core.Role" statementType="PREPARED" timeout="20">
+		insert into tbl_study_role_info(role_id,role_name,role_description,
+		role_status,reg_date,reg_user_id,audit_status,
+		permit_user_id,permit_date,
+		resv_1,resv_2,resv_3,resv_4,resv_5)
+		values(#{roleId},#{roleName},
+		#{roleDescription},#{roleStatus},
+		#{regDate},#{regUserId},#{auditStatus},
+		#{permitUserId},#{permitDate},#{resv1},
+		#{resv2},#{resv3},#{resv4},#{resv5});
+	</insert>
+	<!-- 根据ID查询角色 -->
+	<select id="findRoleById" resultType="com.study.ssm.core.Role" parameterType="java.lang.Integer" statementType="PREPARED" timeout="30" resultMap="Role">
+		select <include refid="Base_Column_List"/> 
+		from tbl_study_role_info where 1=1
+		<if test="roleId!=null">
+		  and role_id=#{roleId}
+		</if>
+	</select>
+	<!-- 更新角色 -->
+	<update id="updateRole" parameterType="com.study.ssm.core.Role" statementType="PREPARED" timeout="30">
+	    update tbl_study_role_info set
+	    <if test="roleName!=null">
+	  		role_name=#{roleName}
+	    </if>
+	    <if test="roleDescription!=null">
+	  		,role_description=#{roleDescription}
+	    </if> 
+	    <if test="roleStatus!=null">
+	  		,role_status=#{roleStatus}
+	    </if> 
+	    <if test="regDate!=null">
+	  		,reg_date=#{regDate}
+	    </if> 
+	    <if test="regUserId!=null">
+	  		,reg_user_id=#{regUserId}
+	    </if> 
+	    <if test="auditStatus!=null">
+	  		,audit_status=#{auditStatus}
+	    </if> 
+	     <if test="permitUserId!=null">
+	  		,permit_user_id=#{permitUserId}
+	    </if> 
+	    <if test="permitDate!=null">
+	  		,permit_date=#{permitDate}
+	    </if> 
+	  	where role_id=#{roleId}
+	</update>
+	<!-- 删除角色 -->	
+	<delete id="deleteRole" parameterType="java.lang.Integer" statementType="PREPARED" timeout="20">
+	  delete from tbl_study_role_info  where role_id=#{roleId}
+	</delete>
+	
+	
+</mapper>

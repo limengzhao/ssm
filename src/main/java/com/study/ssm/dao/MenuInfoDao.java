@@ -23,6 +23,7 @@ public interface MenuInfoDao {
      
      List<Menu>findAll();
      
+     void deleteMenu(@Param(value="menuid")Integer menuid);
      
     
 }

@@ -138,5 +138,20 @@ public class MenuInfoController {
         menuInfoServiceImpl.saveMenu (menu);
         return "true";
     }
+    /**
+     * É¾³ý²Ëµ¥
+     * @param menuid
+     * @return
+     */
+    @RequestMapping(value="/deleteMenu")
+    @ResponseBody
+    public String deleteMenu(Integer menuid){
+        try {
+            menuInfoServiceImpl.deleteMenu (menuid);
+        } catch (Exception e) {
+          return "false";
+        }
+        return "true";
+    }
     
 }

@@ -78,6 +78,11 @@
 	 where menuid=#{menuid}
 	</update>
 
+<delete id="deleteMenu" parameterType="java.lang.Integer" statementType="PREPARED" timeout="20">
+ delete from tbl_study_menu_info where menuid=#{menuid}
+
+
+</delete>
 
 
 

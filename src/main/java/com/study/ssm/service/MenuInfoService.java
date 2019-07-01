@@ -19,4 +19,6 @@ public interface MenuInfoService {
     List<Menu> getParentMenu();
     
     List<Menu>findAll();
+    
+    void deleteMenu(Integer menuid);
 }

@@ -89,4 +89,13 @@ public class Menu {
     public void setParentMenuId(Integer parentMenuId) {
         this.parentMenuId = parentMenuId;
     }
+    @Override
+    public String toString() {
+        return "Menu [menuid=" + menuid + ", menuName=" + menuName + ", parentMenuId=" + parentMenuId + ", menuUrl="
+                + menuUrl + ", status=" + status + ", remark=" + remark + ", crateMenuUser=" + crateMenuUser
+                + ", createTime=" + createTime + ", updateTime=" + updateTime + ", updateUser=" + updateUser
+                + ", parentMenu=" + parentMenu + "]";
+    }
+    
+    
 }
