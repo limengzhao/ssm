@@ -1,5 +1,6 @@
 package com.study.ssm.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
@@ -69,6 +70,7 @@ public class RoleInfoController {
     @RequestMapping(value="/saveRole")
     @ResponseBody
     public String saveRole(Role role){
+        role.setRegDate (new Date());
         roleMenuInfoSreviceImpl.saveRole (role);
         return "true";
     }
